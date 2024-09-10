@@ -1,0 +1,16 @@
+<% include('../layouts/header.ejs') %>
+
+<h1>Edit User</h1>
+
+<form action="/admin/edit-user" method="post">
+    <label>Verify</label>
+    <input type="radio" name="is_verified" value="1" <% if (users.is_verified == 1) { %> checked<% } %>
+    <label>Unverify</label>
+    <input type="radio" name="is_verified" value="0" <% if (users.is_verified == 0) { %> checked<% } %>
+    <br><br>
+    <input type="hidden" name="user_id" value="<%= users._id %>">
+    <input type="submit" value="Update User">
+</form>
+<a href="/admin/dashboard">Go to Dashboard</a>
+
+<% include('../layouts/footer.ejs') %>

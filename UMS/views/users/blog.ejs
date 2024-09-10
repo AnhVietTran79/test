@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Blog</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style1.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Jomhuria&display=swap');
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <!-- LIGHT/DARK MODE -->
+      <button id="theme-switch">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+          <path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+          <path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/>
+        </svg>
+      </button>
+
+      <!-- Navbar and Login/Register button -->
+      <h2 class="Webname"><a href="/home">Genius Ticket</a></h2>
+      <ion-icon class="menu-icon" name="menu-outline" onclick="showSidebar()"></ion-icon>
+      <nav class="navigation">
+        <a href="/home">Home</a>
+        <a href="/profile">My Account</a>
+        <a href="/blog">Forum</a>
+        <a href="/cart/userEvents">Ticket</a>
+        <a href="/logout" class="btnLogin">Logout</a>
+      </nav>
+
+      <nav class="side-bar">
+        <ion-icon class="close-icon" name="close-outline" onclick="hideSidebar()"></ion-icon>
+        <a href="/home">Home</a>
+        <a href="/profile">My Account</a>
+        <a href="/blog">Forum</a>
+        <a href="/cart/userEvents">Ticket</a>
+        <a href="/logout" class="btnLogin">Logout</a>
+      </nav>
+    </header>
+
+    <!-- Blog posts section -->
+    <%
+    if(posts.length > 0) {
+      for(var i = 0; i < posts.length; i++) {
+        var post = posts[i];
+    %>
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 align-items-center my-5">
+        <div class="col-lg-7">
+          <% if (posts[i].image !== undefined && posts[i].image !== '') { %>
+            <img class="img-fluid rounded mb-4 mb-lg-0" src="<%= posts[i].image %>" alt="..." />
+          <% } else { %>
+            <img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." />
+          <% } %>
+        </div>
+        <div class="col-lg-5">
+          <h1 class="font-weight-light"><%= post.title %></h1>
+          <p><%= post.content %></p>
+
+          <% if (post.user) { %>
+            <p>Posted by: <%= post.user.name %></p>
+            <img style="height: 100px;" src="userImages/<%= post.user.image %>" alt="<%= post.user.name %>">
+          <% } else { %>
+            <p>Posted by: Anonymous</p>
+            <img style="height: 100px;" src="https://dummyimage.com/100x100/dee2e6/6c757d.jpg" alt="Anonymous">
+          <% } %>
+
+          <p>Timestamp: <%= new Date(post.createdAt).toLocaleString() %></p>
+          <a class="btn btn-primary" href="/blog/<%= posts[i].id %>">Read More</a>
+        </div>
+      </div>
+    </div>
+    <%
+      }
+    } else {
+    %>
+    <div class="alert alert-warning" role="alert">
+      No posts found
+    </div>
+    <%
+    }
+    %>
+
+    <script type="text/javascript" src="/js/darkmode.js" defer></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"></script>
+  </body>
+</html>
